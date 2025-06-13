@@ -26,7 +26,8 @@ import CreateCoursePage from "@/pages/admin/training/CreateCoursePage";
 import EditCoursePage from "@/pages/admin/training/EditCoursePage";
 import CourseDetailPage from "@/pages/admin/training/CourseDetailPage";
 import AddModulePage from "@/pages/admin/training/AddModulePage";
-import EditModulePage from "@/pages/admin/training/EditModulePage"; // Ensured import is present
+import EditModulePage from "@/pages/admin/training/EditModulePage";
+import AdminDiditSettings from "@/pages/AdminDiditSettings"; // Added import
 import Analytics from "@/pages/analytics";
 import QRScanner from "@/pages/qr-scanner";
 import CheckIn from "@/pages/check-in";
@@ -148,7 +149,7 @@ function Router() {
           <AddModulePage />
         </ProtectedLayout>
       </Route>
-      <Route path="/admin/training/courses/:courseId/modules/:moduleId/edit"> {/* Added new route */}
+      <Route path="/admin/training/courses/:courseId/modules/:moduleId/edit">
         <ProtectedLayout>
           <EditModulePage />
         </ProtectedLayout>
@@ -168,6 +169,20 @@ function Router() {
           <CourseListPage />
         </ProtectedLayout>
       </Route>
+
+      {/* New Route for Didit Settings from main */}
+      <Route path="/admin/didit-settings">
+        <ProtectedLayout>
+          <AdminDiditSettings />
+        </ProtectedLayout>
+      </Route>
+      {/* This route from main points to the older TrainingManagement page */}
+      <Route path="/training-management">
+        <ProtectedLayout>
+          <TrainingManagement />
+        </ProtectedLayout>
+      </Route>
+
       <Route path="/analytics">
         <ProtectedLayout>
           <Analytics />
