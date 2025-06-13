@@ -3,7 +3,7 @@ import { Link }  from 'wouter';
 import { Button } from "@/components/ui/button";
 import { Card, CardHeader, CardTitle, CardContent, CardDescription } from "@/components/ui/card";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
-import { MoreHorizontal, PlusCircle, BookOpen } from "lucide-react";
+import { MoreHorizontal, PlusCircle, BookOpen, Edit, Trash2 } from "lucide-react"; // Added Edit, Trash2
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -20,8 +20,7 @@ import {
   AlertDialogFooter,
   AlertDialogHeader,
   AlertDialogTitle,
-  AlertDialogTrigger,
-} from "@/components/ui/alert-dialog";
+} from "@/components/ui/alert-dialog"; // Removed AlertDialogTrigger as it's not directly used here
 import { apiRequest } from '@/lib/queryClient';
 import { useToast } from "@/hooks/use-toast";
 import { useMutation, useQueryClient } from '@tanstack/react-query';
@@ -65,7 +64,7 @@ const CourseListPage: React.FC = () => {
       }
     };
     fetchCourses();
-  }, [toast]);
+  }, [toast, queryClient]); // Added queryClient to dependency array if it's used in a way that requires it, though not strictly for this fetch.
 
   const deleteMutation = useMutation({
     mutationFn: (courseId: number) => {
@@ -73,7 +72,7 @@ const CourseListPage: React.FC = () => {
         if (!res.ok) {
           return res.json().then(err => { throw new Error(err.error || 'Failed to delete course') });
         }
-        if (res.status === 204) return; // No content to parse for 204
+        if (res.status === 204) return;
         return res.json();
       });
     },
@@ -159,16 +158,20 @@ const CourseListPage: React.FC = () => {
                         <DropdownMenuContent align="end">
                           <DropdownMenuLabel>Actions</DropdownMenuLabel>
                           <DropdownMenuItem asChild>
-                            <Link href={`/admin/training/courses/${course.id}/edit`}>Edit</Link>
+                            <Link href={`/admin/training/courses/${course.id}/edit`}>
+                              <Edit className="mr-2 h-4 w-4" />Edit
+                            </Link>
                           </DropdownMenuItem>
                           <DropdownMenuItem asChild>
-                            <Link href={`/admin/training/courses/${course.id}/modules`}>Manage Modules</Link>
+                            <Link href={`/admin/training/courses/${course.id}`}> {/* Changed href here */}
+                              <ListOrdered className="mr-2 h-4 w-4" />Manage Modules
+                            </Link>
                           </DropdownMenuItem>
                           <DropdownMenuItem
                             onClick={() => openDeleteDialog(course)}
                             className="text-red-600 hover:!text-red-600 focus:!text-red-600 focus:!bg-red-100"
                           >
-                            Delete
+                            <Trash2 className="mr-2 h-4 w-4" />Delete
                           </DropdownMenuItem>
                         </DropdownMenuContent>
                       </DropdownMenu>
@@ -194,7 +197,7 @@ const CourseListPage: React.FC = () => {
             <AlertDialogCancel onClick={() => setCourseToDelete(null)}>Cancel</AlertDialogCancel>
             <AlertDialogAction
               onClick={handleConfirmDelete}
-              className="bg-red-600 hover:bg-red-700" // Or use variant="destructive" if your Button/AlertDialogAction supports it
+              className="bg-red-600 hover:bg-red-700"
               disabled={deleteMutation.isPending}
             >
               {deleteMutation.isPending ? 'Deleting...' : 'Yes, delete course'}

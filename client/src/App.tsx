@@ -23,7 +23,10 @@ import EnhancedTrainingManagement from "@/pages/EnhancedTrainingManagement";
 import TrainingDashboardPage from "@/pages/admin/training/TrainingDashboardPage";
 import CourseListPage from "@/pages/admin/training/CourseListPage";
 import CreateCoursePage from "@/pages/admin/training/CreateCoursePage";
-import EditCoursePage from "@/pages/admin/training/EditCoursePage"; // Added import
+import EditCoursePage from "@/pages/admin/training/EditCoursePage";
+import CourseDetailPage from "@/pages/admin/training/CourseDetailPage";
+import AddModulePage from "@/pages/admin/training/AddModulePage";
+import EditModulePage from "@/pages/admin/training/EditModulePage"; // Ensured import is present
 import Analytics from "@/pages/analytics";
 import QRScanner from "@/pages/qr-scanner";
 import CheckIn from "@/pages/check-in";
@@ -140,9 +143,24 @@ function Router() {
           <CreateCoursePage />
         </ProtectedLayout>
       </Route>
+      <Route path="/admin/training/courses/:courseId/modules/new">
+        <ProtectedLayout>
+          <AddModulePage />
+        </ProtectedLayout>
+      </Route>
+      <Route path="/admin/training/courses/:courseId/modules/:moduleId/edit"> {/* Added new route */}
+        <ProtectedLayout>
+          <EditModulePage />
+        </ProtectedLayout>
+      </Route>
       <Route path="/admin/training/courses/:courseId/edit">
         <ProtectedLayout>
           <EditCoursePage />
+        </ProtectedLayout>
+      </Route>
+      <Route path="/admin/training/courses/:courseId">
+        <ProtectedLayout>
+          <CourseDetailPage />
         </ProtectedLayout>
       </Route>
       <Route path="/admin/training/courses">
