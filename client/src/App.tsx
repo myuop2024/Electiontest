@@ -20,6 +20,10 @@ import RouteNavigation from "@/pages/route-navigation";
 import TrainingCenter from "@/pages/training-center";
 import TrainingManagement from "@/pages/TrainingManagement";
 import EnhancedTrainingManagement from "@/pages/EnhancedTrainingManagement";
+import TrainingDashboardPage from "@/pages/admin/training/TrainingDashboardPage";
+import CourseListPage from "@/pages/admin/training/CourseListPage";
+import CreateCoursePage from "@/pages/admin/training/CreateCoursePage";
+import EditCoursePage from "@/pages/admin/training/EditCoursePage"; // Added import
 import Analytics from "@/pages/analytics";
 import QRScanner from "@/pages/qr-scanner";
 import CheckIn from "@/pages/check-in";
@@ -128,7 +132,22 @@ function Router() {
       </Route>
       <Route path="/admin/training">
         <ProtectedLayout>
-          <TrainingManagement />
+          <TrainingDashboardPage />
+        </ProtectedLayout>
+      </Route>
+      <Route path="/admin/training/courses/new">
+        <ProtectedLayout>
+          <CreateCoursePage />
+        </ProtectedLayout>
+      </Route>
+      <Route path="/admin/training/courses/:courseId/edit">
+        <ProtectedLayout>
+          <EditCoursePage />
+        </ProtectedLayout>
+      </Route>
+      <Route path="/admin/training/courses">
+        <ProtectedLayout>
+          <CourseListPage />
         </ProtectedLayout>
       </Route>
       <Route path="/analytics">
@@ -169,11 +188,6 @@ function Router() {
       <Route path="/admin-settings">
         <ProtectedLayout>
           <AdminSettings />
-        </ProtectedLayout>
-      </Route>
-      <Route path="/training-management">
-        <ProtectedLayout>
-          <TrainingManagement />
         </ProtectedLayout>
       </Route>
       <Route path="/polling-station-management">

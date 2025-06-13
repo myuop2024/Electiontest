@@ -52,7 +52,7 @@ const adminNavigation = [
   { name: 'Incident Management', href: '/incident-management', icon: AlertTriangle },
   { name: 'AI Classifier', href: '/ai-classifier', icon: Brain },
   { name: 'Emergency Management', href: '/emergency-management', icon: AlertTriangle },
-  { name: 'Training Management', href: '/admin-training', icon: BookOpen },
+  { name: 'Training Management', href: '/admin/training', icon: BookOpen }, // Changed href here
   { name: 'Form Builder', href: '/form-builder', icon: Edit3 },
   { name: 'Sheets Integration', href: '/sheets-integration', icon: FileSpreadsheet },
   { name: 'Station Management', href: '/polling-station-management', icon: MapPin },
