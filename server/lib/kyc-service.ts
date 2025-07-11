@@ -39,6 +39,7 @@ export class KYCService {
     const endpoint = await storage.getSettingByKey('didit_api_endpoint');
     const clientId = await storage.getSettingByKey('didit_client_id');
     const clientSecret = await storage.getSettingByKey('didit_client_secret');
+    const apiKeySetting = await storage.getSettingByKey('didit_api_key');
     // New settings
     const livenessModeSetting = await storage.getSettingByKey('didit_liveness_mode');
     const livenessLevelSetting = await storage.getSettingByKey('didit_liveness_level');
@@ -52,7 +53,7 @@ export class KYCService {
       apiUrl: process.env.DIDIT_API_ENDPOINT || endpoint?.value || 'https://apx.didit.me/v2/',
       clientId: process.env.DIDIT_CLIENT_ID || clientId?.value,
       clientSecret: process.env.DIDIT_CLIENT_SECRET || clientSecret?.value,
-      apiKey: process.env.DIDIT_API_KEY, // This was already env-first or env-only
+      apiKey: process.env.DIDIT_API_KEY || apiKeySetting?.value,
       livenessMode: livenessModeSetting?.value || 'console_default',
       livenessLevel: livenessLevelSetting?.value || 'standard',
       amlCheckEnabled: amlCheckEnabledSetting?.value || 'false',
