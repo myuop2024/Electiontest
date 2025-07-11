@@ -100,6 +100,19 @@ describe('KYCService', () => {
       // New settings should still come from storage or their defaults
       expect(config.livenessMode).toBe('console_default');
     });
+
+    it('should use stored API key when environment variable is not set', async () => {
+      mockStorageGetSettingByKey.mockImplementation(async (key: string) => {
+        if (key === 'didit_api_key') return { value: 'stored_api_key' };
+        return null;
+      });
+
+      delete process.env.DIDIT_API_KEY;
+
+      const config = await (KYCService as any).getConfiguration();
+
+      expect(config.apiKey).toBe('stored_api_key');
+    });
   });
 
   describe('verifyWithDidIT', () => {
